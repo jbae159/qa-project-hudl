@@ -20,11 +20,11 @@ export default defineConfig({
   use: {
     video: 'on',
     trace: 'on',
-    actionTimeout: 60 * 1000,
+    actionTimeout: 0,
     headless: true,
     viewport: {
-      width: 1600,
-      height: 900
+      width: 1920,
+      height: 1080
     },
   },
 

@@ -5,7 +5,7 @@ import { log } from 'console';
 const username = process.env.HUDL_USERNAME || '';
 const password = process.env.HUDL_PASSWORD || '';
 
-test.describe('Login Test Suiite', () => {
+test.describe('Login Test Suite', () => {
     test('Login with valid credentials', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
@@ -40,5 +40,13 @@ test.describe('Login Test Suiite', () => {
         await loginPage.navigate();
         await loginPage.emptyPassword(username);
         await loginPage.takePageScreenshot('login-password-empty-error');
+    })
+
+    test('Login page has social media sign in options', async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.navigate();
+        await page.waitForLoadState('load');
+        await loginPage.verifyRegisterLink();
+        await loginPage.verifySocialMediaLogin();
     })
 })

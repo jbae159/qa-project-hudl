@@ -14,11 +14,19 @@ export class LoginPage {
     dropDownEmail: Locator;
     usernameError: Locator;
     passwordError: Locator;
+    createAccountLink: Locator;
+    googleButton: Locator;
+    facebookButton: Locator;
+    appleButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.loginButton = page.locator('a:text("Log in")');
         this.hudlLoginLink = page.locator('a[data-qa-id="login-hudl"]');
+        this.createAccountLink = page.locator('a', { hasText: 'Create Account' });
+        this.googleButton = page.locator('button[type="submit"][data-provider="google"]');
+        this.facebookButton = page.locator('button[type="submit"][data-provider="facebook"]');
+        this.appleButton = page.locator('button[type="submit"][data-provider="apple"]');
         this.emailInput = page.locator('#username');
         this.passwordInput = page.locator('#password');
         this.emailContinueButton = page.locator('button._button-login-id');
@@ -31,9 +39,20 @@ export class LoginPage {
     }
 
     async navigate() {
-        await this.page.goto('https://www.hudl.com');
+        // wait until dom content is loaded to prevent flakiness
+        await this.page.goto('https://www.hudl.com', { waitUntil: 'domcontentloaded' });
         await this.loginButton.click();
         await this.hudlLoginLink.click();
+    }
+
+    async verifyRegisterLink() {
+        expect.soft(this.createAccountLink).toBeVisible();
+    }
+
+    async verifySocialMediaLogin() {
+        expect.soft(this.googleButton).toBeVisible();
+        expect.soft(this.facebookButton).toBeVisible();
+        expect.soft(this.appleButton).toBeVisible();
     }
 
     async login(username: string, password: string) {
