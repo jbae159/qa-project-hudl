@@ -1,0 +1,23 @@
+{
+  "name": "qa-project-hudl",
+  "version": "1.0.0",
+  "private": false,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.x",
+    "npm": ">= 10.x"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright": "^1.51.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "test": "npx playwright test --config playwright.config.ts"
+  }
+}

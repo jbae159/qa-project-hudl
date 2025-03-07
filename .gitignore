@@ -1,0 +1,14 @@
+# See https://docs.github.com/en/get-started/git-basics/ignoring-files for more about ignoring files.
+
+# Dependencies
+/node_modules
+
+# Local env files
+.env
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
