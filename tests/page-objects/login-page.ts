@@ -18,12 +18,14 @@ export class LoginPage {
     googleButton: Locator;
     facebookButton: Locator;
     appleButton: Locator;
+    forgotPasswordLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.loginButton = page.locator('a:text("Log in")');
         this.hudlLoginLink = page.locator('a[data-qa-id="login-hudl"]');
-        this.createAccountLink = page.locator('a', { hasText: 'Create Account' });
+        this.createAccountLink = page.locator('a', { hasText: "Create Account" });
+        this.forgotPasswordLink = page.locator('a', { hasText: "Forgot Password" });
         this.googleButton = page.locator('button[type="submit"][data-provider="google"]');
         this.facebookButton = page.locator('button[type="submit"][data-provider="facebook"]');
         this.appleButton = page.locator('button[type="submit"][data-provider="apple"]');
@@ -55,6 +57,10 @@ export class LoginPage {
         expect.soft(this.appleButton).toBeVisible();
     }
 
+    async verifyForgotPasswordLink() {
+        expect(this.forgotPasswordLink).toBeVisible();
+    }
+
     async login(username: string, password: string) {
         await this.emailInput.fill(username);
         await this.emailContinueButton.click();
@@ -63,6 +69,7 @@ export class LoginPage {
     }
 
     async isLoggedIn() {
+        // returning the email address in header once logged in
         await this.dropDownEmail.waitFor({ state: 'attached' });
         const result = await this.dropDownEmail.textContent();
         return result
@@ -72,7 +79,7 @@ export class LoginPage {
         await this.emailInput.fill('foobar');
         await this.emailContinueButton.click();
         await this.usernameError.waitFor({ state: 'visible' });
-        return true
+        return await this.usernameError.textContent();
     }
 
     async badPassword(username: string) {
@@ -81,7 +88,7 @@ export class LoginPage {
         await this.passwordInput.fill('foobar');
         await this.passwordContinueButton.click();
         await this.passwordError.waitFor({ state: 'visible' });
-        return true
+        return await this.passwordError.textContent();
     }
 
     async emptyEmail() {
@@ -97,6 +104,7 @@ export class LoginPage {
     }
 
     async takePageScreenshot(screenshotName: string) {
+        // compare screenshots to validate error message on empty field
         screenshotName += '.png';
         await this.page.evaluate(() => {
             window.scrollTo({ top: 0 });

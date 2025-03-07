@@ -21,7 +21,7 @@ export default defineConfig({
     video: 'on',
     trace: 'on',
     actionTimeout: 0,
-    headless: true,
+    headless: false,
     viewport: {
       width: 1920,
       height: 1080
