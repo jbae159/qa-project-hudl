@@ -25,7 +25,7 @@ If you don't have the required versions, update Node.js and npm.
 Start by cloning this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/qa-project-hudl.git
+git clone https://github.com/jbae159/qa-project-hudl.git
 ```
 
 ### 2. Install Dependencies
