@@ -5,8 +5,8 @@ import { LoginPage } from '../page-objects/login-page';
 const username = process.env.HUDL_USERNAME || '';
 const password = process.env.HUDL_PASSWORD || '';
 
-test.describe('Login Test Suite', () => {
-    test('Login with valid credentials', async ({ page }) => {
+test.describe('Login Page Functionality', () => {
+    test('should allow login with valid credentials', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         await loginPage.login(username, password);
@@ -14,35 +14,35 @@ test.describe('Login Test Suite', () => {
         expect(loggedIn).toBe(username);
     });
 
-    test('Login with invalid username', async ({ page }) => {
+    test('should display error for invalid username', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         const usernameErrorMsg = await loginPage.badUsername();
         expect(usernameErrorMsg?.trim()).toContain('Enter a valid email.');
     });
 
-    test('Login with invalid password', async ({ page }) => {
+    test('should display error for invalid password', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         const passwordErrorMsg = await loginPage.badPassword(username);
         expect(passwordErrorMsg?.trim()).toContain('Your email or password is incorrect. Try again.');
     });
 
-    test('Login with empty username field', async ({ page }) => {
+    test('should display error when username field is empty', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         await loginPage.emptyEmail();
         await loginPage.takePageScreenshot('login-username-empty-error');
     });
 
-    test('Login with empty password field', async ({ page }) => {
+    test('should display error when password field is empty', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         await loginPage.emptyPassword(username);
         await loginPage.takePageScreenshot('login-password-empty-error');
     });
 
-    test('Login page contains OAuth and account links', async ({ page }) => {
+    test('should display OAuth and account links on the login page', async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.navigate();
         await page.waitForLoadState('load');
